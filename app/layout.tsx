@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import PersistentPlayer from "@/components/PersistentPlayer";
+import dynamic from "next/dynamic";
+
+const AudioPlayerProvider = dynamic(() => import("@/context/ContextProvider"), {
+  ssr: false,
+});
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,7 +34,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <AudioPlayerProvider>
+          {children}
+          <PersistentPlayer />
+        </AudioPlayerProvider>
       </body>
     </html>
   );
