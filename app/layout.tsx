@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import PersistentPlayer from "@/components/PersistentPlayer";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
 const AudioPlayerProvider = dynamic(() => import("@/context/ContextProvider"), {
   ssr: false,
@@ -35,6 +36,19 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AudioPlayerProvider>
+          <div className="w-full h-12 m-4 ">
+            <ul className="flex gap-4">
+              <li className="font-bold border-2 p-2">
+                <Link href="/">Home</Link>
+              </li>
+              <li className="font-bold border-2 p-2">
+                <Link href="/about">About</Link>
+              </li>
+              <li className="font-bold border-2 p-2">
+                <Link href="/contact">Contact</Link>
+              </li>
+            </ul>
+          </div>
           {children}
           <PersistentPlayer />
         </AudioPlayerProvider>

@@ -66,7 +66,10 @@ const AudioPlayerProvider = ({ children }: { children: React.ReactNode }) => {
     if (path === "/" && wavesurfer2 && wavesurfer1) {
       wavesurfer1.setTime(wavesurfer2.getCurrentTime());
       wavesurfer1.setMuted(true); // Keep wavesurfer1 muted
-      wavesurfer1.play();
+
+      if (wavesurfer2.isPlaying() && !wavesurfer1.isPlaying()) {
+        wavesurfer1.play();
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [path, wavesurfer1]);
@@ -95,19 +98,6 @@ const AudioPlayerProvider = ({ children }: { children: React.ReactNode }) => {
       wavesurfer1.setMuted(true); // Keep wavesurfer2 muted
     }
   }, [wavesurfer1]);
-
-  // Update currentTime from wavesurfer2 while it's playing
-  // useEffect(() => {
-  //   const syncCurrentTime = () => {
-  //     if (wavesurfer2) {
-  //       const time = wavesurfer2.getCurrentTime();
-  //       setCurrentTime(time); // Keep track of wave 2's current time
-  //     }
-  //   };
-
-  //   const interval = setInterval(syncCurrentTime, 1000); // Sync every second
-  //   return () => clearInterval(interval);
-  // }, [wavesurfer2]);
 
   // Handle play/pause for both waveforms
   const onPlayPause = useCallback(() => {

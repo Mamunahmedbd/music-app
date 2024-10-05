@@ -30,7 +30,6 @@ const WavesurferCustomPlayer2 = () => {
         plugins={plugins}
         backend="MediaElement"
         interact
-        onPlay={(e) => console.log(e)}
       />
     </>
   );
